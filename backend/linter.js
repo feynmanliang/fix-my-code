@@ -2,29 +2,32 @@ var Promise = require("bluebird");
 var request = Promise.promisifyAll(require("request"));
 
 var Checker = require("jscs");
-var checker = new Checker();
-checker.registerDefaultRules();
+function initChecker() {
+  var checker = new Checker();
+  checker.registerDefaultRules();
 
-// Configure the checker with an options object
-checker.configure({
+  // Configure the checker with an options object
+  checker.configure({
     "requireCurlyBraces": [
-        "if",
-        "else",
-        "for"
+      "if",
+      "else",
+      "for"
     ]
-});
+  });
 
-// Use the jQuery preset
-checker.configure({
+  // Use the jQuery preset
+  checker.configure({
     preset: "jquery"
-});
+  });
 
-// Use the Google preset, but override or remove some options
-checker.configure({
+  // Use the Google preset, but override or remove some options
+  checker.configure({
     preset: "google",
     disallowMultipleLineBreaks: null, // or false
     validateIndentation: "\t"
-});
+  });
+  return checker;
+}
 
 
 var express = require('express');
@@ -35,8 +38,9 @@ app.get('/lint', function (req, res) {
   request.getAsync('https://raw.githubusercontent.com/' + ghPath)
     .then(function(response) {
       console.log('Linting: ' + ghPath)
+      var checker = initChecker();
       var code = response.body;
-      var results = checker.checkString(code);
+      var results = checker.checkString(code, ghPath);
       var errors = results.getErrorList();
 
 

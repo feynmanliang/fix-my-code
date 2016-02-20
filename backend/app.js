@@ -18,14 +18,9 @@ function initChecker() {
     ]
   });
 
-  // Use the jQuery preset
+  // Use the Google preset, but override or remove some options
   checker.configure({
-    preset: "jquery"
-  });
-
-  // Use the Airbnb preset, but override or remove some options
-  checker.configure({
-    preset: "airbnb",
+    preset: "google",
     disallowMultipleLineBreaks: null, // or false
     validateIndentation: "\t"
   });
@@ -98,7 +93,8 @@ app.get('/lint', function (req, res) {
       res.send(JSON.stringify(result));
     })
     .catch(function(err) {
-      console.log("Error: " + JSON.stringify(err));
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(err));
     });
 });
 
@@ -134,11 +130,10 @@ app.post('/english', function (req, res) {
       res.send(JSON.stringify(inputCorpus.corpus));
     })
     .catch(function(err) {
-      console.log(err);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(err));
     });
 });
-
-
 
 app.listen(3000, function () {
 	console.log('Authenticated to github using: ' + JSON.stringify(github.auth));

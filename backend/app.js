@@ -23,9 +23,9 @@ function initChecker() {
     preset: "jquery"
   });
 
-  // Use the Google preset, but override or remove some options
+  // Use the Airbnb preset, but override or remove some options
   checker.configure({
-    preset: "google",
+    preset: "airbnb",
     disallowMultipleLineBreaks: null, // or false
     validateIndentation: "\t"
   });

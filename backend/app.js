@@ -108,3 +108,10 @@ app.listen(3000, function () {
   console.log('Linter on localhost:3000/lint?ghPath=username/reponame/branch/filepath...');
 });
 
+
+// English linter
+var englishLinter = express();
+englishLinter.use('/', express.static('english-linter/'));
+englishLinter.listen(8000, function() {
+  console.log('English linter started on localhost:8000')
+});

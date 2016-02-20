@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node linter.js"
+    "start": "bash ./start.sh"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.3.1",
+    "browserify": "^13.0.0",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "github": "^0.2.4",
+    "jquery": "^2.2.0",
     "jscs": "^2.10.1",
     "lodash": "^4.5.0",
+    "pos": "^0.3.0",
     "request": "^2.69.0"
   }
 }

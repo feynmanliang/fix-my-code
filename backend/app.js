@@ -25,7 +25,7 @@ function initChecker() {
 
   // Use the Airbnb preset, but override or remove some options
   checker.configure({
-    preset: "airbnb",
+    preset: "Airbnb",
     disallowMultipleLineBreaks: null, // or false
     validateIndentation: "\t"
   });

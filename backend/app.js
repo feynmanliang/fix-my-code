@@ -102,16 +102,47 @@ app.get('/lint', function (req, res) {
     });
 });
 
+
+// English linter
+var CorpusViewer = require("./english-linter/js/CorpusViewer.js");
+var InputCorpus = require("./english-linter/js/InputCorpus.js");
+var Validator = require("./english-linter/js/Validator.js");
+var fs = Promise.promisifyAll(require('fs'));
+
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.post('/english', function (req, res) {
+  fs.readFileAsync('./english-linter/top100kWords.txt', 'utf8')
+    .then(function(dict) {
+      var text = req.body.text;
+      var words = dict.split("\n");
+      var dictionary = {};
+      words.forEach(function(maybeWord) {
+        if (maybeWord[0] !== "#") {
+          dictionary[maybeWord] = true;
+        }
+      });
+      var inputCorpus = new InputCorpus(text);
+      var validator = new Validator(inputCorpus, dictionary);
+      validator.runAll();
+      console.log(inputCorpus);
+
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(inputCorpus.corpus));
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+});
+
+
+
 app.listen(3000, function () {
 	console.log('Authenticated to github using: ' + JSON.stringify(github.auth));
   console.log('Repo file ls on localhost:3000/paths?user=username&repo=reponame');
   console.log('Linter on localhost:3000/lint?ghPath=username/reponame/branch/filepath...');
-});
-
-
-// English linter
-var englishLinter = express();
-englishLinter.use('/', express.static('english-linter/'));
-englishLinter.listen(8000, function() {
-  console.log('English linter started on localhost:8000')
+  console.log('Englisher inter on POST (text: text) localhost:3000/english');
 });

@@ -34,7 +34,7 @@ function initChecker() {
 var express = require('express');
 var app = express();
 
-app.get('/ghPaths', function(req, res) {
+app.get('/paths', function(req, res) {
   var user = req.query['user'];
   var repo = req.query['repo'];
   request.getAsync({

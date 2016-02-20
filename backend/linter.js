@@ -53,13 +53,6 @@ app.get('/lint', function (req, res) {
       res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(result));
-
-      //console.log(results.getErrorList())
-
-      //results.getErrorList().forEach(function(error) {
-      //var colorizeOutput = true;
-      //console.log(results.explainError(error, colorizeOutput) + "\n");
-      //});
     })
     .catch(function(err) {
       console.log("Error: " + JSON.stringify(err));

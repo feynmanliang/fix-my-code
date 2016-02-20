@@ -144,5 +144,5 @@ app.listen(3000, function () {
 	console.log('Authenticated to github using: ' + JSON.stringify(github.auth));
   console.log('Repo file ls on localhost:3000/paths?user=username&repo=reponame');
   console.log('Linter on localhost:3000/lint?ghPath=username/reponame/branch/filepath...');
-  console.log('Englisher inter on POST (text: text) localhost:3000/english');
+  console.log('Englisher inter on POST (text: text) localhost:8000/english');
 });

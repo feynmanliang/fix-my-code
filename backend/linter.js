@@ -34,11 +34,11 @@ app.get('/lint', function (req, res) {
   var ghPath = req.query['ghpath'];
   request.getAsync('https://raw.githubusercontent.com/' + ghPath)
     .then(function(response) {
+      console.log('Linting: ' + ghPath)
       var code = response.body;
       var results = checker.checkString(code);
       var errors = results.getErrorList();
 
-      console.log(response.body)
 
       var result = {
         code: code,

@@ -49,6 +49,8 @@ app.get('/lint', function (req, res) {
         errors: errors,
       };
 
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(result));
 

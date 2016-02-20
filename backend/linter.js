@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var _ = require("lodash");
 var Promise = require("bluebird");
 var request = Promise.promisifyAll(require("request"));
@@ -34,17 +36,30 @@ function initChecker() {
 var express = require('express');
 var app = express();
 
+var GitHubApi = require("github");
+var github = new GitHubApi({
+    // required
+    version: "3.0.0",
+    headers: {
+      "user-agent": "ICHack-Fix-My-Code" // GitHub is happy with a unique user agent
+    }
+});
+github.authenticate({
+    type: "oauth",
+    token: process.env.GITHUB_OAUTH_TOKEN
+});
+
 app.get('/paths', function(req, res) {
   var user = req.query['user'];
   var repo = req.query['repo'];
-  request.getAsync({
-    url: 'https://api.github.com/repos/' + user + '/' + repo + '/git/trees/master?recursive=1',
-    headers: {
-      'User-Agent': 'request'
-    }
+	Promise.promisify(github.gitdata.getTree)({
+		user: user,
+		repo: repo,
+		sha: 'master',
+		recursive: true
   }).then(function(response) {
     console.log('Getting ghPath list for: ' + user + '/' + repo);
-    var result = _(JSON.parse(response.body)['tree'])
+    var result = response['tree']
       .map(function(file) {
         return user + '/' + repo + '/master/' + file['path'];
       })
@@ -56,6 +71,8 @@ app.get('/paths', function(req, res) {
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(result));
+	}).catch(function(err) {
+		console.log(err);
   });
 })
 
@@ -86,6 +103,7 @@ app.get('/lint', function (req, res) {
 });
 
 app.listen(3000, function () {
+	console.log('Authenticated to github using: ' + JSON.stringify(github.auth));
   console.log('Repo file ls on localhost:3000/paths?user=username&repo=reponame');
   console.log('Linter on localhost:3000/lint?ghPath=username/reponame/branch/filepath...');
 });

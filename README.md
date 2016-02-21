@@ -1,13 +1,13 @@
 Stylist
 =======
 
-Stylist teaches good programming style through a gamefied quiz where the
-questions are automatically generated from your prior projects.
+Stylist teaches developers good programming and documentation style through a quiz where 
+questions are automatically generated from prior projects.
 
-Languages supported:
-
- * Javascript
- * Natural English Language (e.g. for documentation)
+ * Programming Languages:
+   * Javascript (Google style guide)
+ * Documentation:
+   * Strunk and White's "The Elements of Style"
 
 Javascript
 ----------

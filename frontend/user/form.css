@@ -1,0 +1,55 @@
+
+pre {
+  font-family: monospace;
+  background-color: #fff;
+  width: 100%;
+  margin: 4em auto;
+  padding: 0.2em;
+  border-radius: .25em;
+  box-shadow: 0.1em 0.1em 0.5em rgba(0, 0, 0, 0.45);
+  line-height: 0;
+  counter-reset: line;
+  white-space:pre-wrap;
+}
+pre span, pre {
+  font-size: 18px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+pre span:hover {
+  background-color: #000;
+  color: #FFF;
+}
+pre span:before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  border-right: 1px solid #ddd;
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: #888;
+}
+
+/* My own code */
+/*span.line {
+  background-color: #000;
+  color: #FFF;
+  cursor: pointer;
+}
+span.line:hover {
+  background-color: #FFF;
+  color: #000;
+}*/
+.nf {
+  float: none !important;
+  text-align: center;
+}
+#ans1, #ans2, #ans3, #ans4 {
+  text-align: center !important;
+}
+
+.clicky {
+  height: 67px !important;
+}

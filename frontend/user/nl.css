@@ -1,0 +1,25 @@
+.word {
+  display: inline-block;
+}
+.word:hover {
+  color: #FFF;
+  background-color: #000;
+}
+.word-question {
+  color: #FF0000;
+  background-color: #000;
+}
+.word-done {
+  color: #00FF00;
+  background: #000;
+}
+.nf {
+  float: none !important;
+  text-align: center;
+}
+#ans1, #ans2, #ans3, #ans4 {
+  text-align: center !important;
+}
+#click1, #click2, #click3, #click4, .clicky {
+  height: 67px !important;
+}
